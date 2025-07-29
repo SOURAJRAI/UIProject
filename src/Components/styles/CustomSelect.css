@@ -1,0 +1,90 @@
+
+.custom-select-container {
+    position: relative;
+    width: 100%;
+}
+
+.custom-select {
+    padding: 10px;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth transition */
+    user-select: none;
+}
+
+
+
+.custom-select.open {
+    border: 2px solid #1e1f20;
+    box-shadow: 0 0 0 2px white, 0 0 0 5px #a0a1a3;
+    transform: translateY(-1px);
+}
+
+.select-value {
+    color: #333;
+    font-size: 14px;
+}
+
+.select-arrow {
+    width: 16px;
+    height: 16px;
+    color: #666;
+}
+
+
+
+.custom-options {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    margin-top: 5px;
+    background-color: white;
+    border: 1px solid #dedddd;
+    border-radius: 6px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    
+    /* Transition properties */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.95);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.custom-options.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.custom-option {
+    padding: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: all 0.15s ease;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+
+
+.custom-option:hover {
+    background-color: #f8f9fa;
+    
+}
+
+.custom-option:active {
+    background-color: #e9ecef;
+}
+
+
+
+

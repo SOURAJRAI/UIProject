@@ -1,0 +1,146 @@
+.overlay{
+    position:fixed;
+    inset:0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+}
+
+.modal{
+    position: fixed;
+    top: 50%;
+    left:50%;
+    width: 90%;
+    max-width: 800px;
+    max-height:  80vh;
+    transform :translate(-50%,-50%);
+    overflow-y: auto;
+    background-color: white;
+    padding: 24px;
+    border-radius: 8px;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.modal-header h2{
+    margin:0;
+}
+
+.subtext{
+    color:#8e8e8e;
+    font-size: 14px;
+    margin-top: 6px;
+}
+.close-btn{
+    background-color: white;
+    border: none;
+    font-size: 4px;
+    cursor: pointer;
+    color: #636060;
+    
+
+
+}
+.close-btn :hover{
+    color: black;
+}
+
+.close-Icon{
+    height: 18px;
+    width: 18px;
+}
+
+.modal-body{
+    margin: 8px 0 0 0;
+}
+
+
+.card{
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:16px;
+    margin-bottom: 20px;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label{
+    font-size: 14px;
+    margin:15px 0 10px 0 ;
+}
+
+/* add select later if it wont work*/
+.form-group input,
+.form-group textarea
+{
+    padding:10px;
+    border-radius: 6px;
+    border: 1px solid #dedddd;
+
+}
+
+
+.form-group input:focus,
+.form-group textarea:focus{
+        
+  border: 2px solid #1e1f20; 
+  box-shadow: 0 0 0 2px white,0 0 0 5px #a0a1a3; 
+}
+
+textarea::placeholder{
+    font-family: "Inter",sans-serif;
+}
+
+
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:16px;
+}
+
+.section-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+.reference-box{
+    border: 1px solid #ccc;
+    padding:16px;
+    margin-top: 12px;
+    border-radius: 6px;
+
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.add-btn{
+  padding: 10px 10px 10px 10px;
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid rgb(222, 213, 213);
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-icon{
+    padding:0px 10px 0 0;
+    height: 18px;
+    width: 18   px;
+}
+/* this is custom selector */
