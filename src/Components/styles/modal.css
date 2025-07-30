@@ -25,9 +25,10 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    /* position: relative; */
 }
 
-.modal-header h2{
+.modal-header h3{
     margin:0;
 }
 
@@ -37,22 +38,23 @@
     margin-top: 6px;
 }
 .close-btn{
+    position: absolute;
     background-color: white;
     border: none;
     font-size: 4px;
     cursor: pointer;
     color: #636060;
-    
-
-
+    margin: 0 0px 0 0;
+    top: 10px;
+    right: 16px;
 }
 .close-btn :hover{
     color: black;
 }
 
-.close-Icon{
-    height: 18px;
-    width: 18px;
+.close-icon{
+    height: 15px;
+    width: 15px;
 }
 
 .modal-body{
@@ -113,18 +115,38 @@ textarea::placeholder{
 
 }
 
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+ 
+}
 .reference-box{
     border: 1px solid #ccc;
     padding:16px;
     margin-top: 12px;
     border-radius: 6px;
-
+    position: relative;
+}
+.reference-box h4   {
+    font-weight: 500;
 }
 
-.grid-3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
+.remove-btn{
+    position: absolute;
+  right: 0;
+  top: 10px;
+
+  color: rgb(1, 1, 1);
+    border: none;
+    background-color: white;
+
+  padding: 5px 8px;
+  cursor: pointer;
+}
+.removeref-icon{
+    height: 17px;
+    width: 17px;
 }
 
 .add-btn{
@@ -144,3 +166,63 @@ textarea::placeholder{
     width: 18   px;
 }
 /* this is custom selector */
+
+.modal-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eee;
+    padding-top: 16px;
+    margin-top: 16px;
+}
+
+.modal-footer p{
+    font-size: 14px;
+    color:gray;
+}
+.btn{
+    padding:13px 16px;
+    border-radius: 8px ;
+    border:none;
+    cursor: pointer;
+    font-weight: 500;
+}
+.btn.cancel{
+    display: flex;
+    background-color: #ffffff;
+    border: 1px solid rgb(230, 222, 222);
+}
+
+
+.btn.save{
+     display: flex;
+    background-color: #0a0a0a;
+    color:white;
+    
+}
+.btn.save:disabled{
+   display: flex;
+    background-color: #a3a3a3;
+}
+.save-icon{
+    height: 16px;
+    width: 16px;
+    padding:0px 10px 0 0;
+}
+
+.btn-footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit-header{
+    display: flex;
+    align-items: center;
+
+}
+
+.edit-icon{
+    padding: 0 10px 0 0;
+}

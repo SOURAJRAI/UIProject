@@ -20,9 +20,29 @@ import {
   CircleCheck,
 } from "lucide-react";
 import Modal from "../Components/modal";
+import TopicCard from "../Components/TopicCard";
 
 function Dashboard() {
   const [showModal,setShowModal]=useState(false);
+  const [topics,setTopics]=useState([]);
+  const [editData,setEditData]=useState(null);
+
+  const handleSave=(newTopics)=>{
+        if(editData){
+      console.log("editing Data",editData);
+    }else{
+      console.log("new ");
+    setTopics(prevTopics=>[...prevTopics,newTopics]);
+    }
+  };
+
+  const handleEdit=(data)=>{
+      setShowModal(true);
+      setEditData(data)
+      console.log("Update data",data);
+
+  }
+
 
   return (
     <>
@@ -45,7 +65,9 @@ function Dashboard() {
             <Upload className="icons" />
             Bulk Upload{" "}
           </button>
-          <button className="nav-button-create" onClick={()=>setShowModal(true)}>
+          <button className="nav-button-create" onClick={()=>{setShowModal(true);
+            setEditData(null);
+          }}>
             <Plus className="icons-add" />
             Create Topic
           </button>
@@ -110,7 +132,13 @@ function Dashboard() {
           </button>
         </div>
       </div>
-      <Modal isOpen={showModal} onClose={()=>setShowModal(false)}/>
+      <div className="topics-section">
+      <TopicCard/>
+      {topics.map((topic)=>(
+        <TopicCard key={topic.id} topicData={topic} onEdit={handleEdit}/>
+      ))}
+      </div>
+      <Modal isOpen={showModal} onClose={()=>setShowModal(false)} save={handleSave} editData={editData}/>
     </>
   );
 }
