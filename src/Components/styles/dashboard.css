@@ -1,11 +1,13 @@
 .navbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-
+  gap: 10px;
 }
 
 .nav-heading {
-  max-width: 500px;
+  flex: 1;
+  min-width: 250px;
 }
 
 .main-heading {
@@ -20,13 +22,22 @@
 }
 .head-button-group {
   display: flex;
-  gap: 18px;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: 10px;
   padding: 10px 0px;
+ 
 
+}
+.nav-button:hover{
+  background-color: #f4f4f4;
+}
+.nav-button-create:hover{
+  background-color: #111827;
 }
 
 .nav-button {
-  padding: 10px 10px 10px 10px;
+  padding: 10px;
   background-color: white;
   border-radius: 6px;
   border: 1px solid rgb(222, 213, 213);
@@ -35,9 +46,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  
+
+ 
 }
+
 .nav-button-create {
-  padding: 10px 15px 10px 15px;
+  padding: 10px 15px;
   background-color: black;
   color: white;
   border-radius: 5px;
@@ -46,13 +61,14 @@
   justify-content: center;
   display: flex;
   align-items: center;
+
+  
 }
 
 .icons {
   padding: 0 8px 0 0;
   font-weight: 500;
-  /* font-size: 4px; */
-   height: 18px ;
+  height: 18px ;
   width: 18px;
 
 }
@@ -60,28 +76,30 @@
 .icons-add {
   padding: 0 8px 0 0;
   font-weight: 500;
-  /* font-size: 4px; */
   height: 20px ;
   width: 20px;
 }
 
 .Framework-section {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 15px;
   margin: 24px 0 0 0;
   border-radius: 0.5rem;
   border: 1px solid;
-
   background-color: #eff6ff;
   border-color: #bfdbfe;
+  padding: 15px;
 }
 
 .Frame-heading-section {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 20px 10px 20px 10px;
+  flex: 1;
+  min-width: 200px;
 }
 
 .frame-icons {
@@ -106,9 +124,9 @@
 .active-frameworks {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
-  white-space: nowrap;
-  padding: 0 20px 0 0;
+  padding: 0;
 }
 
 .active {
@@ -131,14 +149,14 @@
 }
 
 .frame:hover {
-  background-color: rgba(100, 116, 139, 0.8);
+  background-color: rgba(248, 248, 248, 0.8);
 }
 
 .card-grid {
-  display: flex ;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
-  padding:20px 0 0 0;
+  padding: 20px 0 0 0;
 }
 
 /* filtering */
@@ -154,6 +172,7 @@
   
   .search-filter-content{
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 16px;
     width: 100%;
@@ -161,8 +180,9 @@
   
   .search-container{
     position: relative;
+    display: flex;
     flex: 1;
-
+    min-width: 200px;
   }
   
   .search-icon{
@@ -173,21 +193,18 @@
     color:#9ca3af;
     width: 16px;
     height: 16px;
-   
-    
   }
   
   .search-input{
-  
     height: 40px;
-    width: 96%;
+    flex:1;
     padding: 0 12px 0 36px;
     border:1px solid #e1e1e1;
     border-radius: 8px;
     font-size: 14px;
     color:#111827;
     background-color: #ffffff;
-    outline: none;
+   
 }
 
 

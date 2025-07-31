@@ -2,9 +2,7 @@
   background-color: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   padding: 16px;
-  /* min-width: 328px; */
 }
 
 
@@ -17,7 +15,7 @@
 
 .card-text .label {
   font-size: 14px;
-  color: #6b7280; /* Tailwind gray-600 */
+  color: #6b7280; 
   margin: 0;
 }
 

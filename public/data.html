@@ -1,0 +1,141 @@
+
+                      {/* {subtopic.stakeholders.length > 0 && (
+                        <div className="meta-row">
+                          <Users className="meta-icon" />
+                          <span className="meta-label">Stakeholders:</span>
+                          <div className="stakeholder-list">
+                            {subtopic.stakeholders?.map((stakeholder, index) => (
+                              <span key={index} className="stakeholder-badge">
+                                {stakeholder}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )} */}
+
+                      {/* {subtopic.iros?.length > 0 && (
+                        <div className="meta-row">
+                          <Target className="meta-icon" />
+                          <span className="meta-label">IROs:</span>
+                          <div className="iro-list">
+                            {subtopic.iros.map((iro, index) => (
+                              <span
+                                key={index}
+                                className={`iro-badge ${iro.toLowerCase()}`}
+                              >
+                                {iro}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )} */}
+
+
+                      <!-- css -->
+
+
+                      <!--  -->
+
+                      
+.framework-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #6b7280;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.framework-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.subtopic-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.meta-icon {
+  width: 14px;
+  height: 14px;
+  color: #6b7280;
+}
+
+.meta-label {
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.industry-badge {
+  background-color: #f3f4f6;
+  color: #374151;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.stakeholder-list,
+.iro-list {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.stakeholder-badge {
+  background-color: white;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.iro-badge {
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid;
+}
+
+.iro-badge.risk {
+  background-color: #fef2f2;
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
+.iro-badge.opportunity {
+  background-color: #f0fdf4;
+  color: #16a34a;
+  border-color: #bbf7d0;
+}
+
+
+.subtopic-frameworks {
+  margin-bottom: 12px;
+}
+
+.framework-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #6b7280;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.framework-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}

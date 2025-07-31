@@ -13,83 +13,12 @@ import "./styles/TopicCard.css";
 const TopicCard = ({topicData,onEdit}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  
-  // Static data for now
-  // const defaultData = {
-  //   title: "Climate Change And Noise Management",
-  //   code: "ESRS E1",
-  //   frame: "S",
-  //   status: "Configured",
-  //   description:
-  //     "Assess the organization's GHG emissions, climate risks, and resilience strategies, including mitigation, adaptation, and transition impacts on business operations and stakeholders.",
-  //   frameworkReferences: [
-  //     {
-  //       framework: "CSRD/ESRS",
-  //       code: "ESRS E1",
-  //       description: "Climate Change",
-  //     },
-  //     {
-  //       framework: "GRI",
-  //       code: "GRI 305",
-  //       description: "Emissions",
-  //     },
-  //     {
-  //       framework: "TCFD",
-  //       code: "Strategy",
-  //       description: "Climate-related Risks and Opportunities",
-  //     },
-  //     {
-  //       framework: "SDGs",
-  //       code: "SDG 13",
-  //       description: "Climate Action",
-  //     },
-  //   ],
-  //   subtopics: [
-  //     {
-  //       id: 1,
-  //       name: "Greenhouse Gas (GHG) Emissions",
-  //       code: "ESRS E1.1",
-  //       frameworks: [
-  //         {
-  //           name: "ESRS",
-  //           code: "ESRS E1-6",
-  //           description: "Gross Scopes 1, 2, 3 and Total GHG emissions",
-  //         },
-  //         {
-  //           name: "GRI",
-  //           code: "GRI 305-1",
-  //           description: "Direct (Scope 1) GHG emissions",
-  //         },
-  //       ],
-  //       industry: "Air Freight & Logistics",
-  //       stakeholders: ["Environmental Team", "Operations"],
-  //       iros: ["Risk", "Opportunity"],
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "Noise Management",
-  //       code: "ESRS E1.2",
-  //       frameworks: [
-  //         {
-  //           name: "ESRS",
-  //           code: "ESRS E1-4",
-  //           description: "Pollution of air, water and soil",
-  //         },
-  //         { name: "GRI", code: "GRI 413", description: "Local Communities" },
-  //       ],
-  //       industry: "Air Freight & Logistics",
-  //       stakeholders: [],
-  //       iros: [],
-  //     },
-  //   ],
-  // };
   const data=topicData ;
-  console.log(data);
+  console.log("inside the topic card",data);
   
   const handleEdit=(data)=>{
     if(onEdit){
       onEdit(data);
-      
     }else{
       console.log("no edit given");
     }
@@ -127,7 +56,6 @@ const TopicCard = ({topicData,onEdit}) => {
          
                 <span className="badge badge-status">
                   <CircleCheck className="status-icon" />
-                  {data.status}
                 </span>
               </div>
             </div>
@@ -194,37 +122,7 @@ const TopicCard = ({topicData,onEdit}) => {
                           {subtopic.industry}
                         </span>
                       </div>
-
-                      {subtopic.stakeholders.length > 0 && (
-                        <div className="meta-row">
-                          <Users className="meta-icon" />
-                          <span className="meta-label">Stakeholders:</span>
-                          <div className="stakeholder-list">
-                            {subtopic.stakeholders?.map((stakeholder, index) => (
-                              <span key={index} className="stakeholder-badge">
-                                {stakeholder}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {subtopic.iros?.length > 0 && (
-                        <div className="meta-row">
-                          <Target className="meta-icon" />
-                          <span className="meta-label">IROs:</span>
-                          <div className="iro-list">
-                            {subtopic.iros.map((iro, index) => (
-                              <span
-                                key={index}
-                                className={`iro-badge ${iro.toLowerCase()}`}
-                              >
-                                {iro}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
+                    
                     </div>
                   </div>
 

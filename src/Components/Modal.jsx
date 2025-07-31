@@ -25,6 +25,8 @@ function Modal({ isOpen, onClose,save,editData }) {
     const updated = [...subtopics];
     updated[index][field] = value;
     setSubtopic(updated);
+    // setSubtopic([{...subtopics, [field] : value }])
+    console.log("subtopics",subtopics)
   };
 
   const addReference = () => {
@@ -44,10 +46,11 @@ function Modal({ isOpen, onClose,save,editData }) {
     setSubtopic(updated);
   };
 
-//   const isFromValid=topicName && topicCode && description ;
+
 
   const handleSave=()=>{
     const newTopics={
+        id:Date.now(),
         title:topicName,
         code : topicCode,
         frame: selectedFramework.charAt(0),
@@ -67,12 +70,6 @@ function Modal({ isOpen, onClose,save,editData }) {
     }
 
     save(newTopics);
-    // setTopicName("");
-    // setTopicCode("");
-    // setDescription("");
-    // setSelectedFramework("");
-    // setReference([{ framework: "", code: "", description: "" }]);
-    // setSubtopic([{ topic: "", subtopiccode: "", subtopicdescription: "" }]);
     handleClose();
     
   }
@@ -107,11 +104,21 @@ function Modal({ isOpen, onClose,save,editData }) {
       }));
 
       setSubtopic(subtopicMap.length>0? subtopicMap : [{ topic: "", subtopiccode: "", subtopicdescription: "" }])
+    }else{
+
+    setTopicName("");
+    setTopicCode("");
+    setDescription("");
+    setSelectedFramework("");
+    setReference([{ framework: "", code: "", description: "" }]);
+    setSubtopic([{ topic: "", subtopiccode: "", subtopicdescription: "" }]);
     }
     console.log("inside modal edit useefect",editData);
+    
+
   },[editData,isOpen]);
 
-  const isFormValid = topicName && topicCode && description && selectedFramework && references ;
+  const isFormValid = topicName && topicCode && description ;
 
   return (
     isOpen && (

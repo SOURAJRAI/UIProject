@@ -19,30 +19,54 @@ import {
   Search,
   CircleCheck,
 } from "lucide-react";
-import Modal from "../Components/modal";
+import Modal from "../Components/Modal";
 import TopicCard from "../Components/TopicCard";
 
 function Dashboard() {
-  const [showModal,setShowModal]=useState(false);
-  const [topics,setTopics]=useState([]);
-  const [editData,setEditData]=useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [topics, setTopics] = useState([]);
+  const [editData, setEditData] = useState(null);
 
-  const handleSave=(newTopics)=>{
-        if(editData){
-      console.log("editing Data",editData);
-    }else{
-      console.log("new ");
-    setTopics(prevTopics=>[...prevTopics,newTopics]);
+  const handleSave = (newTopics) => {
+    if (editData) {
+
+      setTopics(prevTopics=>prevTopics.map(topic=>
+        topic.id===editData.id ? newTopics : topic
+      ))
+      console.log("editing Data", editData);
+      
+    } else {
+      console.log("new data");
+    
+      setTopics((prevTopics) => [...prevTopics, newTopics]);
     }
+
+    setEditData(null);
+
   };
 
-  const handleEdit=(data)=>{
-      setShowModal(true);
-      setEditData(data)
-      console.log("Update data",data);
+  const handleEdit = (data) => {
+    setShowModal(true);
+    setEditData(data);
+    console.log("Update data", data);
+    
+  };
+  const [searchTerm, setSearchTerm] = useState(""); 
 
-  }
+  const filteredTopics = topics.filter(
+    (topic) =>
+      topic.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      topic.code?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
+  const counttopic=topics.length || 0;
+
+  const countSubtopic=topics.reduce((initial,topic)=> initial+(topic.subtopics?.length || 0),0);
+  const countFramework=topics.reduce((initial,topic)=> initial+(topic.frameworkReferences?.length || 0),0);
+
+  console.log("Count topic    ",counttopic)
+  console.log("Count Subtopitopic    ",countSubtopic)
+  console.log("Count framework    ",countFramework)
 
   return (
     <>
@@ -55,7 +79,7 @@ function Dashboard() {
         </div>
         <div className="head-button-group">
           <button className="nav-button">
-            <SlidersVertical className="icons" /> Assessment Level:Subtopic{" "}
+            <SlidersVertical className="icons" /> Assessment Level:Subtopic
           </button>
           <button className="nav-button">
             <Settings className="icons" />
@@ -65,9 +89,13 @@ function Dashboard() {
             <Upload className="icons" />
             Bulk Upload{" "}
           </button>
-          <button className="nav-button-create" onClick={()=>{setShowModal(true);
-            setEditData(null);
-          }}>
+          <button
+            className="nav-button-create"
+            onClick={() => {
+              setEditData(null);
+              setShowModal(true);
+            }}
+          >
             <Plus className="icons-add" />
             Create Topic
           </button>
@@ -91,54 +119,65 @@ function Dashboard() {
       <div className="card-grid">
         <Cards
           label="Total Topics"
-          value="2"
+          value={counttopic}
           icon={<CircleCheck width={20} height={20} />}
-          bgColor="#DCFCE7" // Tailwind green-100
-          iconColor="#33a95eff" // Tailwind green-700
+          bgColor="#DCFCE7" 
+          iconColor="#33a95eff" 
         />
         <Cards
           label="Configured"
           value="1"
           icon={<Settings width={20} height={20} />}
-          bgColor="#DBEAFE" // Tailwind blue-100
-          iconColor="#2a56d2ff" // Tailwind blue-700
+          bgColor="#DBEAFE" 
+          iconColor="#2a56d2ff" 
         />
         <Cards
           label="Total Subtopics"
-          value="3"
+          value={countSubtopic}
           icon={<Target width={20} height={20} />}
-          bgColor="#EDE9FE" // Tailwind purple-100
-          iconColor="#7C3AED" // Tailwind purple-700
+          bgColor="#EDE9FE" 
+          iconColor="#7C3AED" 
         />
         <Cards
           label="Active Frameworks"
-          value="2"
+          value={countFramework}
           icon={<Filter width={20} height={20} />}
-          bgColor="#FFEDD5" // Tailwind orange-100
-          iconColor="#ec703fff" // Tailwind orange-700
+          bgColor="#FFEDD5" 
+          iconColor="#ec703fff" 
         />
       </div>
       {/* filterSection */}
       <div className="search-filter">
         <div className="search-filter-content">
           <div className="search-container">
-            <Search  className="search-icon"/>
-            <input type="text" className="search-input" placeholder="Search topics or codes..."/>
+            <Search className="search-icon" />
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search topics or codes..."
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
           <button className="filter-button">
-            <Filter 
- className="filter-icons"/>
+            <Filter className="filter-icons" />
             Filter
           </button>
         </div>
       </div>
       <div className="topics-section">
-      <TopicCard/>
-      {topics.map((topic)=>(
-        <TopicCard key={topic.id} topicData={topic} onEdit={handleEdit}/>
-      ))}
+        {/* <TopicCard /> */}
+        {
+          filteredTopics.map((topic) => (
+            <TopicCard key={topic.id} topicData={topic} onEdit={handleEdit} />
+          ))
+       }
       </div>
-      <Modal isOpen={showModal} onClose={()=>setShowModal(false)} save={handleSave} editData={editData}/>
+      <Modal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        save={handleSave}
+        editData={editData}
+      />
     </>
   );
 }
