@@ -37,7 +37,7 @@
 }
 
 .nav-button {
-  padding: 10px;
+  padding: 10px 15px 10px 15px;
   background-color: white;
   border-radius: 6px;
   border: 1px solid rgb(222, 213, 213);
@@ -52,7 +52,7 @@
 }
 
 .nav-button-create {
-  padding: 10px 15px;
+    padding: 10px 25px 10px 15px;
   background-color: black;
   color: white;
   border-radius: 5px;
@@ -61,6 +61,7 @@
   justify-content: center;
   display: flex;
   align-items: center;
+  font-weight: 500;
 
   
 }
@@ -162,7 +163,7 @@
 /* filtering */
 
 .search-filter{
-    border-radius: 12px;
+    border-radius: 5px;
     border:1px solid #e5e7eb;
     background-color:#fff;
     color: #1f2937;
@@ -214,7 +215,7 @@
     color: #898e96 ;
 }
 .search-input:focus{
-      
+
   border: 2px solid #1e1f20; 
   box-shadow: 0 0 0 2px white,0 0 0 5px #a0a1a3; 
 }

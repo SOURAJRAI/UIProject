@@ -10,8 +10,8 @@
   top: 50%;
   left: 50%;
   width: 90%;
-  max-width: 800px;
-  max-height: 80vh;
+  max-width: 850px;
+  max-height: 85vh;
   transform: translate(-50%, -50%);
   overflow-y: auto;
   background-color: white;
@@ -21,22 +21,21 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  /* position: relative; */
+.card h3{
+  font-size: 18px;
 }
 
 .modal-header h3 {
   margin: 0;
+  font-size: 20px;
 }
 
 .subtext {
-  color: #8e8e8e;
-  font-size: 14px;
+  color: #4B5563 !important;
+  font-size: 16px !important;
   margin-top: 6px;
 }
+
 .close-btn {
   position: absolute;
   background-color: white;
@@ -71,16 +70,20 @@
 .form-group {
   display: flex;
   flex-direction: column;
+  flex:1;
+  
 }
 
 .form-group label {
   font-size: 14px;
   margin: 15px 0 10px 0;
+  font-weight: 500;
 }
 
 
 .form-group input,
 .form-group textarea {
+
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #dedddd;
@@ -98,9 +101,10 @@ textarea {
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 16px;
+  
 }
 
 .section-header {
@@ -108,21 +112,29 @@ textarea {
   justify-content: space-between;
   align-items: center;
 }
+.section-header h3{
+  margin: 0;
+  padding: 20px 0 30px 0;
+  font-size: 18px;
+  font-weight: 600;
+  }
 
 .grid-3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+
+  display: flex;
+  flex-wrap: wrap;
   gap: 16px;
 }
 .reference-box {
-  border: 1px solid #ccc;
+  border: 1px solid #e1e1e1;
   padding: 16px;
-  margin-top: 12px;
-  border-radius: 6px;
+  margin: 12px;
+  border-radius: 8px;
   position: relative;
 }
 .reference-box h4 {
   font-weight: 500;
+  margin: 0;
 }
 
 .remove-btn {
@@ -171,7 +183,7 @@ textarea {
 
 .modal-footer p {
   font-size: 14px;
-  color: gray;
+  color: #4B5563;
 }
 .btn {
   padding: 13px 16px;
@@ -184,6 +196,14 @@ textarea {
   display: flex;
   background-color: #ffffff;
   border: 1px solid rgb(230, 222, 222);
+}
+
+.btn.cancel:hover{
+  background-color: #f3f3f3;
+}
+
+.btn.save:hover{
+  background-color: #28282a;
 }
 
 .btn.save {
@@ -216,4 +236,33 @@ textarea {
 
 .edit-icon {
   padding: 0 10px 0 0;
+}
+
+.subtopic-header-edit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  background-color: #F9FAFB;
+  padding: 8px;
+    
+
+  
+}
+
+.subtopic-name-edit {
+  font-size: 16px;
+  font-weight: 500;
+  color: #111827;
+  margin: 0;
+}
+
+.subtopic-code-edit {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #cbcbcb;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0a0a0a;
 }

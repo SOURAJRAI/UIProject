@@ -3,8 +3,8 @@ import "./styles/modal.css";
 import { Edit, Plus, Save, X } from "lucide-react";
 import CustomSelect from "./CustomSelect";
 
-function Modal({ isOpen, onClose,save,editData }) {
-    const [topicName, setTopicName] = useState("");
+function Modal({ isOpen, onClose, save, editData }) {
+  const [topicName, setTopicName] = useState("");
   const [topicCode, setTopicCode] = useState("");
   const [description, setDescription] = useState("");
   const [selectedFramework, setSelectedFramework] = useState("");
@@ -26,7 +26,7 @@ function Modal({ isOpen, onClose,save,editData }) {
     updated[index][field] = value;
     setSubtopic(updated);
     // setSubtopic([{...subtopics, [field] : value }])
-    console.log("subtopics",subtopics)
+    console.log("subtopics", subtopics);
   };
 
   const addReference = () => {
@@ -34,9 +34,12 @@ function Modal({ isOpen, onClose,save,editData }) {
   };
 
   const addSubtopic = () => {
-    setSubtopic([...subtopics, { topic: "", subtopiccode: "", subtopicdescription: "" }]);
+    setSubtopic([
+      ...subtopics,
+      { topic: "", subtopiccode: "", subtopicdescription: "" },
+    ]);
   };
-  
+
   const removeReference = (index) => {
     const updated = references.filter((_, id) => id !== index);
     setReference(updated);
@@ -46,34 +49,32 @@ function Modal({ isOpen, onClose,save,editData }) {
     setSubtopic(updated);
   };
 
-
-
-  const handleSave=()=>{
-    const newTopics={
-        id:Date.now(),
-        title:topicName,
-        code : topicCode,
-        frame: selectedFramework.charAt(0),
-        description:description,
-        frameworkReferences:[...references].filter((ref)=>ref.framework && ref.code),
-        subtopics:subtopics
-         .filter(sub => sub.topic && sub.subtopiccode)
-        .map((sub,index)=>({
+  const handleSave = () => {
+    const newTopics = {
+      id: Date.now(),
+      title: topicName,
+      code: topicCode,
+      frame: selectedFramework.charAt(0),
+      description: description,
+      frameworkReferences: [...references].filter(
+        (ref) => ref.framework && ref.code
+      ),
+      subtopics: subtopics
+        .filter((sub) => sub.topic && sub.subtopiccode)
+        .map((sub, index) => ({
           id: index + 1,
           name: sub.topic,
           code: sub.subtopiccode,
           description: sub.subtopicdescription,
-          industry: "Air Freight & Logistics", 
-          stakeholders: []
-          
-        }))
-    }
+          industry: "Air Freight & Logistics",
+          stakeholders: [],
+        })),
+    };
 
     save(newTopics);
     handleClose();
-    
-  }
-  const handleClose=()=>{
+  };
+  const handleClose = () => {
     onClose();
     setTopicName("");
     setTopicCode("");
@@ -81,44 +82,49 @@ function Modal({ isOpen, onClose,save,editData }) {
     setSelectedFramework("");
     setReference([{ framework: "", code: "", description: "" }]);
     setSubtopic([{ topic: "", subtopiccode: "", subtopicdescription: "" }]);
-    
-   }
+  };
 
-  useEffect(()=>{
-    if(editData){
+  useEffect(() => {
+    if (editData) {
       setTopicName(editData?.title || "");
       setTopicCode(editData?.code || "");
       setDescription(editData?.description || "");
-      
-      const Refrence={
-        'E':'Environment',
-        'S':'Social',
-        'G':'Governance'
-      }
+
+      const Refrence = {
+        E: "Environment",
+        S: "Social",
+        G: "Governance",
+      };
       setSelectedFramework(Refrence[editData?.frame] || "");
-      setReference(editData?.frameworkReferences || [{ framework: "", code: "", description: "" }])
-      const subtopicMap=(editData.subtopics ||[]).map((sub)=>({
-        topic:sub.name,
-        subtopiccode:sub.code,
-        subtopicdescription:sub.description
+      setReference(
+        editData?.frameworkReferences || [
+          { framework: "", code: "", description: "" },
+        ]
+      );
+      const subtopicMap = (editData.subtopics || []).map((sub) => ({
+        topic: sub.name,
+        subtopiccode: sub.code,
+        subtopicdescription: sub.description,
       }));
 
-      setSubtopic(subtopicMap.length>0? subtopicMap : [{ topic: "", subtopiccode: "", subtopicdescription: "" }])
-    }else{
-
-    setTopicName("");
-    setTopicCode("");
-    setDescription("");
-    setSelectedFramework("");
-    setReference([{ framework: "", code: "", description: "" }]);
-    setSubtopic([{ topic: "", subtopiccode: "", subtopicdescription: "" }]);
+      setSubtopic( subtopicMap 
+        // subtopicMap.length > 0
+        //   ? subtopicMap
+        //   : [{ topic: "", subtopiccode: "", subtopicdescription: "" }]
+      );
+    } else {
+      setTopicName("");
+      setTopicCode("");
+      setDescription("");
+      setSelectedFramework("");
+      setReference([{ framework: "", code: "", description: "" }]);
+      setSubtopic([{ topic: "", subtopiccode: "", subtopicdescription: "" }]);
     }
-    console.log("inside modal edit useefect",editData);
-    
+    console.log("inside modal edit useefect", editData);
+  }, [editData, isOpen]);
 
-  },[editData,isOpen]);
+  const isFormValid = topicName && topicCode && description && selectedFramework;
 
-  const isFormValid = topicName && topicCode && description ;
 
   return (
     isOpen && (
@@ -127,43 +133,47 @@ function Modal({ isOpen, onClose,save,editData }) {
         <div className="modal">
           <div className="modal-header">
             <div>
-              {
-                editData?
-                (
-                <div className="edit-header">
-                <Edit className="edit-icon"/>
-                <h3>Edit Topic</h3>
-                </div>
-                ):
-                (
-                  
+                {/* <div className="edit-header"> */}
+              {editData ? (
+                  <div className="edit-header">
+                    <Edit className="edit-icon" />
+                    <h3>Edit Topic</h3>
+                  </div>
+                ) : (
                   <h3>Create Custom Topic</h3>
-                )
-              }
+                )}
+                {/* </div> */}
               <p className="subtext">
-                {
-                  editData ? 
-                  'Modify topic details and framework references' :  
-                  'Add a custom topic and subtopics to your assessment library'
-                }
-                
+                {editData
+                  ? "Modify topic details and framework references"
+                  : "Add a custom topic and subtopics to your assessment library"}
               </p>
             </div>
           </div>
-            <button className="close-btn" onClick={handleClose}>
-              <X className="close-icon" />
-            </button>
+          <button className="close-btn" onClick={handleClose}>
+            <X className="close-icon" />
+          </button>
           <div className="modal-body">
             <div className="card">
               <h3>Basic Information</h3>
               <div className="grid">
                 <div className="form-group">
                   <label>Topic Name *</label>
-                  <input type="text" placeholder="eg., Water Management" value={topicName} onChange={(e)=>setTopicName(e.target.value)}/>
+                  <input
+                    type="text"
+                    placeholder="eg., Water Management"
+                    value={topicName}
+                    onChange={(e) => setTopicName(e.target.value)}
+                  />
                 </div>
                 <div className="form-group">
                   <label>Topic Code *</label>
-                  <input type="text" placeholder="eg., CUSTOM-W1" value={topicCode} onChange={(e)=>setTopicCode(e.target.value)}/>
+                  <input
+                    type="text"
+                    placeholder="eg., CUSTOM-W1"
+                    value={topicCode}
+                    onChange={(e) => setTopicCode(e.target.value)}
+                  />
                 </div>
               </div>
               <div className="form-group">
@@ -172,12 +182,12 @@ function Modal({ isOpen, onClose,save,editData }) {
                   rows="3"
                   placeholder="Describe the topics and its scope..."
                   value={description}
-                  onChange={(e)=>setDescription(e.target.value)}
+                  onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
               <div className="form-group">
                 <label>ESG Pillar *</label>
-              
+
                 <CustomSelect
                   options={["Environment", "Social", "Governance"]}
                   placeholder="Select ESG pillar"
@@ -246,66 +256,121 @@ function Modal({ isOpen, onClose,save,editData }) {
                 </div>
               ))}
             </div>
-
-            <div className="card">
-              <div className="section-header">
-                <h3>Subtopics</h3>
-                <button className="add-btn" onClick={addSubtopic}>
-                  <Plus className="add-icon" />
-                  Add Subtopics
-                </button>
-              </div>
-              {subtopics.map((subtopic, index) => (
-                <div className="reference-box" key={index}>
-                  <h4>Subtopic {index+1}</h4>
-                   {subtopics.length > 1 && (
-                    <button
-                      className="remove-btn"
-                      onClick={() => removeTopic(index)}
-                    >
-                      <X className="removeref-icon" />
-                    </button>
+            {editData ? (
+           
+                <div className="card">
+                  <div className="section-header">
+                    <h3>Subtopics ({subtopics.filter((topic)=>topic.topic && topic.subtopiccode).length})</h3>
+                  </div>
+                  {subtopics.filter((topic)=>topic.topic && topic.subtopiccode).length > 0 ? (
+                    subtopics
+                    .filter((topic)=> topic.topic && topic.subtopiccode)
+                    .map((subtopic, index) => (
+                      <div className="subtopic-header-edit" key={index}>
+                        <h5 className="subtopic-name-edit">{subtopic.topic}</h5>
+                        <span className="subtopic-code-edit">
+                          {subtopic.subtopiccode}
+                        </span>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="no-subtopics">
+                      <p>Nothing to show</p>
+                    </div>
                   )}
-                  <div className="grid">
-                    <div className="form-group">
-                      <label htmlFor="">Subtopic Name</label>
-                      <input
-                        type="text"
-                        placeholder="e.g., Water Consumption"
-                        value={subtopic.topic}
-                        onChange={(e)=>handleChangeSubtopic(index, "topic", e.target.value)}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label>Subtopic Code</label>
-                      <input type="text" placeholder="e.g., CUSTOM-W1.1" 
-                      value={subtopic.subtopiccode}
-                       onChange={(e)=>handleChangeSubtopic(index, "subtopiccode", e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label>Description</label>
-                    <textarea rows="2" placeholder="Describe the subtopic..." 
-                    value={subtopic.subtopicdescription}
-                       onChange={(e)=>handleChangeSubtopic(index, "subtopicdescription", e.target.value)}
-                    />
-                  </div>
                 </div>
-              ))}
-            </div>
+            ) : (
+              <div className="card">
+                <div className="section-header">
+                  <h3>Subtopics</h3>
+                  <button className="add-btn" onClick={addSubtopic}>
+                    <Plus className="add-icon" />
+                    Add Subtopics
+                  </button>
+                </div>
+                {subtopics.map((subtopic, index) => (
+                  <div className="reference-box" key={index}>
+                    <h4>Subtopic {index + 1}</h4>
+                    {subtopics.length > 1 && (
+                      <button
+                        className="remove-btn"
+                        onClick={() => removeTopic(index)}
+                      >
+                        <X className="removeref-icon" />
+                      </button>
+                    )}
+                    <div className="grid">
+                      <div className="form-group">
+                        <label htmlFor="">Subtopic Name</label>
+                        <input
+                          type="text"
+                          placeholder="e.g., Water Consumption"
+                          value={subtopic.topic}
+                          onChange={(e) =>
+                            handleChangeSubtopic(index, "topic", e.target.value)
+                          }
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Subtopic Code</label>
+                        <input
+                          type="text"
+                          placeholder="e.g., CUSTOM-W1.1"
+                          value={subtopic.subtopiccode}
+                          onChange={(e) =>
+                            handleChangeSubtopic(
+                              index,
+                              "subtopiccode",
+                              e.target.value
+                            )
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label>Description</label>
+                      <textarea
+                        rows="3"
+                        placeholder="Describe the subtopic..."
+                        value={subtopic.subtopicdescription}
+                        onChange={(e) =>
+                          handleChangeSubtopic(
+                            index,
+                            "subtopicdescription",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* footer section */}
             <div className="modal-footer">
-              <p>Custom will be available for all assessments</p>
+              {editData ? (
+                <p>
+                  {" "}
+                  Changes will be applied to the topic and its configuration
+                </p>
+              ) : (
+                <p>Custom will be available for all assessments</p>
+              )}
               <div className="btn-footer">
-                <button className="btn cancel" onClick={handleClose}>Cancel</button>
-                <button className="btn save"  onClick={handleSave} disabled={!isFormValid}>
-                  <Save className="save-icon" />{editData?'Save Changes':'Create Topic'}
+                <button className="btn cancel" onClick={handleClose}>
+                  Cancel
+                </button>
+                <button
+                  className="btn save"
+                  onClick={handleSave}
+                  disabled={!isFormValid}
+                >
+                  <Save className="save-icon" />
+                  {editData ? "Save Changes" : "Create Topic"}
                 </button>
               </div>
             </div>
-
           </div>
         </div>
       </>
