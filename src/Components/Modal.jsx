@@ -51,7 +51,7 @@ function Modal({ isOpen, onClose, save, editData }) {
 
   const handleSave = () => {
     const newTopics = {
-      id: Date.now(),
+      // id: Date.now(),
       title: topicName,
       code: topicCode,
       frame: selectedFramework.charAt(0),
@@ -124,7 +124,7 @@ function Modal({ isOpen, onClose, save, editData }) {
   }, [editData, isOpen]);
 
   const isFormValid = topicName && topicCode && description && selectedFramework;
-
+  
 
   return (
     isOpen && (
@@ -262,14 +262,15 @@ function Modal({ isOpen, onClose, save, editData }) {
                   <div className="section-header">
                     <h3>Subtopics ({subtopics.filter((topic)=>topic.topic && topic.subtopiccode).length})</h3>
                   </div>
+                 
                   {subtopics.filter((topic)=>topic.topic && topic.subtopiccode).length > 0 ? (
                     subtopics
                     .filter((topic)=> topic.topic && topic.subtopiccode)
                     .map((subtopic, index) => (
                       <div className="subtopic-header-edit" key={index}>
-                        <h5 className="subtopic-name-edit">{subtopic.topic}</h5>
+                        <h5 className="subtopic-name-edit">{subtopic?.topic}</h5>
                         <span className="subtopic-code-edit">
-                          {subtopic.subtopiccode}
+                          {subtopic?.subtopiccode}
                         </span>
                       </div>
                     ))

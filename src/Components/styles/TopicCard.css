@@ -162,6 +162,13 @@
   
 }
 
+.action-icon-trash{
+  width: 16px;
+  height: 16px;
+  color: #d54040;
+  
+}
+
 .action-btn:hover {
   background-color: #ececec;
   /* border-color: #9ca3af; */

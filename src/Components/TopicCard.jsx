@@ -11,118 +11,24 @@ import {
   Search,
   UserPlus,
   Save,
+ 
+  Trash2,
+  
 } from "lucide-react";
 import "./styles/TopicCard.css";
 import CustomSelect from "./CustomSelect";
+import { FaTrash } from "react-icons/fa";
 
-const TopicCard = ({ topicData, onEdit }) => {
+
+const TopicCard = ({ topicData, onEdit,onDelete }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isOpen, setIsopen] = useState(false);
-
-  // Add this static data to your component or parent component
-
-  const sampleTopicsData = [
-    {
-      id: 1,
-      title: "Climate Change And Noise Management",
-      code: "ESRS E1",
-      frame: "E",
-      description:
-        "Assess the organization's GHG emissions, climate risks, and resilience strategies, including mitigation, adaptation, and transition impacts on business operations and stakeholders.",
-      frameworkReferences: [
-        {
-          framework: "CSRD/ESRS",
-          code: "ESRS E1",
-          description: "Climate Change",
-        },
-        {
-          framework: "GRI",
-          code: "GRI 305",
-          description: "Emissions",
-        },
-        {
-          framework: "TCFD",
-          code: "Strategy",
-          description: "Climate-related Risks and Opportunities",
-        },
-        {
-          framework: "SDGs",
-          code: "SDG 13",
-          description: "Climate Action",
-        },
-      ],
-      subtopics: [
-        {
-          id: 1,
-          name: "Greenhouse Gas (GHG) Emissions",
-          code: "ESRS E1.1",
-          description:
-            "Monitor and report direct and indirect greenhouse gas emissions across all scopes.",
-          industry: "Air Freight & Logistics",
-          stakeholders: [],
-        },
-        {
-          id: 2,
-          name: "Noise Management",
-          code: "ESRS E1.2",
-          description:
-            "Manage and mitigate noise pollution from operations affecting local communities.",
-          industry: "Air Freight & Logistics",
-          stakeholders: [],
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: "Water and Marine Resources",
-      code: "ESRS E3",
-      frame: "E",
-      description:
-        "Evaluate water consumption, discharge, and impact on marine ecosystems, including water stress areas and biodiversity conservation efforts.",
-      frameworkReferences: [
-        {
-          framework: "CSRD/ESRS",
-          code: "ESRS E3",
-          description: "Water and Marine Resources",
-        },
-        {
-          framework: "GRI",
-          code: "GRI 303",
-          description: "Water and Effluents",
-        },
-        {
-          framework: "CDP",
-          code: "Water Security",
-          description: "Water Risk Management",
-        },
-      ],
-      subtopics: [
-        {
-          id: 1,
-          name: "Water Consumption",
-          code: "ESRS E3.1",
-          description: "Track water usage and implement conservation measures.",
-          industry: "Air Freight & Logistics",
-          stakeholders: [],
-        },
-        {
-          id: 2,
-          name: "Water Discharge",
-          code: "ESRS E3.2",
-          description:
-            "Monitor and treat wastewater discharge to minimize environmental impact.",
-          industry: "Air Freight & Logistics",
-          stakeholders: [],
-        },
-      ],
-    },
-  ];
-
-  const data = topicData || sampleTopicsData[0];
+ 
+  const data = topicData ;
   console.log("inside the topic card", data);
 
-  const [stakeHolderType, setstakeHolderType] = useState();
-  const [category, setCategory] = useState();
+  // const [stakeHolderType, setstakeHolderType] = useState("");
+  // const [category, setCategory] = useState("");
 
   const handleEdit = (data) => {
     if (onEdit) {
@@ -131,6 +37,16 @@ const TopicCard = ({ topicData, onEdit }) => {
       console.log("no edit given");
     }
   };
+  const handleDelete=(data)=>{
+    if(onDelete){
+      onDelete(data._id);
+    }else{
+      console.log("No delete funtion")
+    }
+  }
+
+
+
 
   return (
     <>
@@ -182,6 +98,10 @@ const TopicCard = ({ topicData, onEdit }) => {
               <button className="action-btn">
                 <Eye className="action-icon" />
               </button>
+              <button className="action-btn" onClick={()=>handleDelete(data)}>
+                   {/* <Trash2 className="action-icon-trash" /> */}
+                   <FaTrash className="action-icon-trash"/>
+              </button>
             </div>
           </div>
 
@@ -193,15 +113,14 @@ const TopicCard = ({ topicData, onEdit }) => {
                   <div className="content-section">
                     <h4 className="section-title">Framework References</h4>
                     <div className="framework-references">
-                      {data.frameworkReferences.map((ref, index) => (
+                      {data.frameworkReferences?.map((ref, index) => (
                         <div key={index} className="framework-ref">
                           <span className="framework-badge">
-                            {ref.framework}
+                            {ref?.framework}
                           </span>
-                          <span className="framework-code">{ref.code}</span>
+                          <span className="framework-code">{ref?.code}</span>
                           <span className="framework-desc">
-                            {" "}
-                            - {ref.description}
+                          {""}  - {ref?.description}
                           </span>
                         </div>
                       ))}
@@ -223,13 +142,13 @@ const TopicCard = ({ topicData, onEdit }) => {
 
                 {data?.subtopics.length > 0 && (
                   <div className="subtopics-list">
-                    {data.subtopics.map((subtopic) => (
-                      <div key={subtopic.id} className="subtopic-card">
+                    {data.subtopics?.map((subtopic,index) => (
+                      <div key={index} className="subtopic-card">
                         <div className="subtopic-content">
                           <div className="subtopic-header">
-                            <h5 className="subtopic-name">{subtopic.name}</h5>
+                            <h5 className="subtopic-name">{subtopic?.name}</h5>
                             <span className="subtopic-code">
-                              {subtopic.code}
+                              {subtopic?.code}
                             </span>
                           </div>
 
@@ -237,12 +156,12 @@ const TopicCard = ({ topicData, onEdit }) => {
                             <div className="meta-row">
                               <span className="meta-label">Industries:</span>
                               <span className="industry-badge">
-                                {subtopic.industry}
+                                {subtopic?.industry}
                               </span>
                             </div>
                           </div>
                         </div>
-
+                      
                         <div className="subtopic-actions">
                           <button
                             className="subtopic-action-btn"
@@ -270,7 +189,7 @@ const TopicCard = ({ topicData, onEdit }) => {
       )}
 
       {/* StakeHolderModel */}
-      {isOpen && (
+      {/* {isOpen && (
         <>
           <div className="overlay" onClick={() => setIsopen(false)}></div>
           <div className="modal">
@@ -365,11 +284,11 @@ const TopicCard = ({ topicData, onEdit }) => {
                 </div>
 
                 <div className="stakeholders-why">
-                  {/* <div className="icon-why"> */}
+        
                   <button className="user-Button">
                     <Users className="usericon-why"/>
                     </button>
-                  {/* </div> */}
+         
                   <div className="why-data">
                   <h3>
                     Why assign stakeholders?
@@ -392,7 +311,8 @@ const TopicCard = ({ topicData, onEdit }) => {
             </div>
           </div>
         </>
-      )}
+      )} */
+      }
     </>
   );
 };

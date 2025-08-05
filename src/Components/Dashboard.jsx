@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles/dashboard.css";
 import "./styles/Cards.css";
-import { FiSliders } from "react-icons/fi";
-import { MdOutlineSettings } from "react-icons/md";
-import { MdOutlineFileUpload } from "react-icons/md";
-import { IoMdAdd } from "react-icons/io";
-import { LuBuilding2 } from "react-icons/lu";
+
 import Cards from "../Components/Cards";
-import { CiFilter } from "react-icons/ci";
+
 
 import {
   Settings,
@@ -18,27 +14,80 @@ import {
   Plus,
   Search,
   CircleCheck,
+  Building2,
 } from "lucide-react";
 import Modal from "../Components/Modal";
 import TopicCard from "../Components/TopicCard";
+import axios from 'axios';
+
+const api =axios.create({
+  baseURL:"http://localhost:5001/api"
+})
 
 function Dashboard() {
   const [showModal, setShowModal] = useState(false);
   const [topics, setTopics] = useState([]);
   const [editData, setEditData] = useState(null);
+  const [isUpdated,setisUpdated]=useState(false);
 
-  const handleSave = (newTopics) => {
+
+  useEffect(()=>{
+   getData()
+
+  },[isUpdated]);
+
+  const getData=async()=>{
+    try{
+      const response=await api.get('/getData');
+      setTopics(response.data.data|| response.data)
+      setisUpdated(false);
+    }catch(err)
+    {
+      console.log("Error while fetching data",err)
+      setTopics([]);
+    }
+
+  }
+
+  const handleUpdate=async(updatedTopic)=>{
+    try{
+      
+      const response=await api.put(`/updateData/${updatedTopic._id}`,updatedTopic)
+
+       console.log("Topic updated successfully:", response.data.data);
+       console.log("inside handle update fucntion",updatedTopic)
+    setEditData(null);
+    setShowModal(false);
+    setisUpdated(true);
+
+    }catch(err){
+        console.log("Error updating topic:",err);
+        console.log("inside handle update fucntion",updatedTopic)
+    }
+
+  }
+
+  const handleSave = async (newTopics) => {
     if (editData) {
 
-      setTopics(prevTopics=>prevTopics.map(topic=>
-        topic.id===editData.id ? newTopics : topic
-      ))
-      console.log("editing Data", editData);
+
+      console.log("Original data:", editData);
+    console.log("New data from form:", newTopics);
+
+        const updatedTopic = {
+      ...newTopics,      
+      _id: editData._id  
+    };
+     console.log("Final data to send:", updatedTopic);
+      await handleUpdate(updatedTopic);
       
     } else {
-      console.log("new data");
-    
-      setTopics((prevTopics) => [...prevTopics, newTopics]);
+      const response= await api.post('/addData',newTopics)
+      
+      const createTopic= response.data.data;
+      // setTopics((prevTopics) => [...prevTopics, createTopic]);
+      console.log("new data",createTopic);
+      setisUpdated(true);
     }
 
     setEditData(null);
@@ -67,6 +116,23 @@ function Dashboard() {
   console.log("Count topic    ",counttopic)
   console.log("Count Subtopitopic    ",countSubtopic)
   console.log("Count framework    ",countFramework)
+
+  const handleDelete=async(id)=>{
+      try{
+
+        const response =await api.delete(`/deleteData/${id}`)
+        console.log("topic deleted successfull",response)
+        setisUpdated(true);
+      }catch(err){
+        console.error("failed to delete ",err)
+
+      }
+  }
+
+
+
+ 
+  
 
   return (
     <>
@@ -103,7 +169,7 @@ function Dashboard() {
       </div>
       <div className="Framework-section">
         <div className="Frame-heading-section">
-          <LuBuilding2 className="frame-icons" />
+          <Building2 className="frame-icons" />
           <div className="frame-heading">
             <h3>Global Logistics Corp</h3>
             <p>Air Freight & Logistics • International Freight</p>
@@ -165,11 +231,11 @@ function Dashboard() {
         </div>
       </div>
       <div className="topics-section">  
-        {/* <TopicCard/> */}
-        {/* <TopicCard /> */}
+   
         {
           filteredTopics.map((topic) => (
-            <TopicCard key={topic.id} topicData={topic} onEdit={handleEdit} />
+            <TopicCard key={topic._id} topicData={topic} onEdit={handleEdit} onDelete={handleDelete} />
+           
           ))
        }
       </div>
