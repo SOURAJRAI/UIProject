@@ -23,7 +23,8 @@ import { FaTrash } from "react-icons/fa";
 const TopicCard = ({ topicData, onEdit,onDelete }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isOpen, setIsopen] = useState(false);
- 
+  
+
   const data = topicData ;
   console.log("inside the topic card", data);
 

@@ -6,7 +6,7 @@ function Cards({label,value,icon,bgColor,iconColor}) {
       <div className="card-content">
         <div className="card-text">
           <p className="label">{label}</p>
-          <p className="value">{value}</p>
+          <p className="value">{value }</p>
         </div>
         <div className="card-icon" style={{ backgroundColor: bgColor, color: iconColor }}>
           {icon}

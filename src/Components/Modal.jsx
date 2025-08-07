@@ -4,18 +4,21 @@ import { Edit, Plus, Save, X } from "lucide-react";
 import CustomSelect from "./CustomSelect";
 
 function Modal({ isOpen, onClose, save, editData }) {
+
+  
+  
   const [topicName, setTopicName] = useState("");
   const [topicCode, setTopicCode] = useState("");
   const [description, setDescription] = useState("");
   const [selectedFramework, setSelectedFramework] = useState("");
-
+  
   const [references, setReference] = useState([
     { framework: "", code: "", description: "" },
   ]);
   const [subtopics, setSubtopic] = useState([
     { topic: "", subtopiccode: "", subtopicdescription: "" },
   ]);
-
+  
   const handleChange = (index, field, value) => {
     const updated = [...references];
     updated[index][field] = value;
@@ -26,20 +29,20 @@ function Modal({ isOpen, onClose, save, editData }) {
     updated[index][field] = value;
     setSubtopic(updated);
     // setSubtopic([{...subtopics, [field] : value }])
-    console.log("subtopics", subtopics);
+    console.log("inside hhandle change subtopic", subtopics);
   };
-
+  
   const addReference = () => {
     setReference([...references, { framework: "", code: "", description: "" }]);
   };
-
+  
   const addSubtopic = () => {
     setSubtopic([
       ...subtopics,
       { topic: "", subtopiccode: "", subtopicdescription: "" },
     ]);
   };
-
+  
   const removeReference = (index) => {
     const updated = references.filter((_, id) => id !== index);
     setReference(updated);
@@ -48,7 +51,7 @@ function Modal({ isOpen, onClose, save, editData }) {
     const updated = subtopics.filter((_, id) => id !== index);
     setSubtopic(updated);
   };
-
+  
   const handleSave = () => {
     const newTopics = {
       // id: Date.now(),
@@ -60,17 +63,17 @@ function Modal({ isOpen, onClose, save, editData }) {
         (ref) => ref.framework && ref.code
       ),
       subtopics: subtopics
-        .filter((sub) => sub.topic && sub.subtopiccode)
-        .map((sub, index) => ({
-          id: index + 1,
-          name: sub.topic,
-          code: sub.subtopiccode,
-          description: sub.subtopicdescription,
-          industry: "Air Freight & Logistics",
-          stakeholders: [],
-        })),
+      .filter((sub) => sub.topic && sub.subtopiccode)
+      .map((sub, index) => ({
+        id: index + 1,
+        name: sub.topic,
+        code: sub.subtopiccode,
+        description: sub.subtopicdescription,
+        industry: "Air Freight & Logistics",
+        stakeholders: [],
+      })),
     };
-
+    
     save(newTopics);
     handleClose();
   };
@@ -83,13 +86,13 @@ function Modal({ isOpen, onClose, save, editData }) {
     setReference([{ framework: "", code: "", description: "" }]);
     setSubtopic([{ topic: "", subtopiccode: "", subtopicdescription: "" }]);
   };
-
+  
   useEffect(() => {
     if (editData) {
       setTopicName(editData?.title || "");
       setTopicCode(editData?.code || "");
       setDescription(editData?.description || "");
-
+      
       const Refrence = {
         E: "Environment",
         S: "Social",
@@ -106,7 +109,7 @@ function Modal({ isOpen, onClose, save, editData }) {
         subtopiccode: sub.code,
         subtopicdescription: sub.description,
       }));
-
+      
       setSubtopic( subtopicMap 
         // subtopicMap.length > 0
         //   ? subtopicMap
@@ -122,9 +125,10 @@ function Modal({ isOpen, onClose, save, editData }) {
     }
     console.log("inside modal edit useefect", editData);
   }, [editData, isOpen]);
-
+  
   const isFormValid = topicName && topicCode && description && selectedFramework;
   
+
 
   return (
     isOpen && (

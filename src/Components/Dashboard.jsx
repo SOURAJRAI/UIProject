@@ -19,6 +19,7 @@ import {
 import Modal from "../Components/Modal";
 import TopicCard from "../Components/TopicCard";
 import axios from 'axios';
+import BulkUpload from "./BulkUpload";
 
 const api =axios.create({
   baseURL:"http://localhost:5001/api"
@@ -26,6 +27,7 @@ const api =axios.create({
 
 function Dashboard() {
   const [showModal, setShowModal] = useState(false);
+  const [showBulkModal, setShowBulkModal] = useState(false);
   const [topics, setTopics] = useState([]);
   const [editData, setEditData] = useState(null);
   const [isUpdated,setisUpdated]=useState(false);
@@ -82,15 +84,20 @@ function Dashboard() {
       await handleUpdate(updatedTopic);
       
     } else {
-      const response= await api.post('/addData',newTopics)
-      
-      const createTopic= response.data.data;
-      // setTopics((prevTopics) => [...prevTopics, createTopic]);
-      console.log("new data",createTopic);
-      setisUpdated(true);
-    }
+      try{
 
-    setEditData(null);
+        const response= await api.post('/addData',newTopics)
+        
+        const createTopic= response.data.data;
+        // setTopics((prevTopics) => [...prevTopics, createTopic]);
+        console.log("new data",createTopic);
+        setisUpdated(true);
+        setEditData(null);
+      }catch(err){
+        console.log(err);
+      }
+  
+      }
 
   };
 
@@ -129,6 +136,8 @@ function Dashboard() {
       }
   }
 
+  console.log("filterTopivs",filteredTopics)
+
 
 
  
@@ -151,7 +160,9 @@ function Dashboard() {
             <Settings className="icons" />
             Configure Frameworks
           </button>
-          <button className="nav-button">
+          <button className="nav-button" onClick={()=>
+            setShowBulkModal(true)
+          }>
             <Upload className="icons" />
             Bulk Upload{" "}
           </button>
@@ -239,11 +250,18 @@ function Dashboard() {
           ))
        }
       </div>
+      
       <Modal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         save={handleSave}
         editData={editData}
+      />
+
+      <BulkUpload
+      isOpen={showBulkModal}
+      onClose={()=>setShowBulkModal(false)}
+       onUpdate={()=>setisUpdated(true)}
       />
     </>
   );
